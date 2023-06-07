@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/Header';
+import { Route, Routes } from 'react-router-dom';
+import Menu from './components/Menu';
+import Orders from './components/Orders';
+import Admin from './components/Admin';
+import { useAppSelector } from './Hooks/useAppSelector';
 
-function App() {
+const App = () => {
+
+
+  const { dark } = useAppSelector(s => s.BeginSlice)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ 
+      background: dark ? "#23de" : "" ,
+      color: dark ? "white" : ""
+    }}>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Menu />} />
+        <Route path='/orders' element={<Orders />} />
+        <Route path='/admin' element={<Admin />} />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
